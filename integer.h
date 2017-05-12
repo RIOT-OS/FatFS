@@ -15,7 +15,10 @@ typedef unsigned __int64 QWORD;
 #else			/* Embedded platform */
 
 /* These types MUST be 16-bit or 32-bit */
+/* removed because it creates a naming clash with cc2538_rfcore.h 
+ * and it isn't used anyway
 typedef int				INT;
+*/
 typedef unsigned int	UINT;
 
 /* This type MUST be 8-bit */
