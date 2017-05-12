@@ -8,14 +8,22 @@
 / Function Configurations
 /---------------------------------------------------------------------------*/
 
-#define _FS_READONLY	0
+#ifndef FATFS_FFCONF_OPT_FS_READONLY
+#define  _FS_READONLY	0
+#else
+#define  _FS_READONLY	FATFS_FFCONF_OPT_FS_READONLY
+#endif
 /* This option switches read-only configuration. (0:Read/Write or 1:Read-only)
 /  Read-only configuration removes writing API functions, f_write(), f_sync(),
 /  f_unlink(), f_mkdir(), f_chmod(), f_rename(), f_truncate(), f_getfree()
 /  and optional writing functions as well. */
 
 
-#define _FS_MINIMIZE	0
+#ifndef FATFS_FFCONF_OPT_FS_MINIMIZE
+#define  _FS_MINIMIZE	0
+#else
+#define  _FS_MINIMIZE	FATFS_FFCONF_OPT_FS_MINIMIZE
+#endif
 /* This option defines minimization level to remove some basic API functions.
 /
 /   0: All basic functions are enabled.
@@ -25,7 +33,11 @@
 /   3: f_lseek() function is removed in addition to 2. */
 
 
-#define	_USE_STRFUNC	0
+#ifndef FATFS_FFCONF_OPT_USE_STRFUNC
+#define		_USE_STRFUNC	0
+#else
+#define		_USE_STRFUNC	FATFS_FFCONF_OPT_USE_STRFUNC
+#endif
 /* This option switches string functions, f_gets(), f_putc(), f_puts() and
 /  f_printf().
 /
@@ -34,34 +46,62 @@
 /  2: Enable with LF-CRLF conversion. */
 
 
-#define _USE_FIND		0
+#ifndef FATFS_FFCONF_OPT_USE_FIND
+#define  _USE_FIND		0
+#else
+#define  _USE_FIND		FATFS_FFCONF_OPT_USE_FIND
+#endif
 /* This option switches filtered directory read functions, f_findfirst() and
 /  f_findnext(). (0:Disable, 1:Enable 2:Enable with matching altname[] too) */
 
 
-#define	_USE_MKFS		0
+#ifndef FATFS_FFCONF_OPT_USE_MKFS
+#define		_USE_MKFS		1
+#else
+#define		_USE_MKFS		FATFS_FFCONF_OPT_USE_MKFS
+#endif
 /* This option switches f_mkfs() function. (0:Disable or 1:Enable) */
 
 
-#define	_USE_FASTSEEK	0
+#ifndef FATFS_FFCONF_OPT_USE_FASTSEEK
+#define		_USE_FASTSEEK	0
+#else
+#define		_USE_FASTSEEK	FATFS_FFCONF_OPT_USE_FASTSEEK
+#endif
 /* This option switches fast seek function. (0:Disable or 1:Enable) */
 
 
-#define	_USE_EXPAND		0
+#ifndef FATFS_FFCONF_OPT_USE_EXPAND
+#define		_USE_EXPAND		0
+#else
+#define		_USE_EXPAND		FATFS_FFCONF_OPT_USE_EXPAND
+#endif
 /* This option switches f_expand function. (0:Disable or 1:Enable) */
 
 
-#define _USE_CHMOD		0
+#ifndef FATFS_FFCONF_OPT_USE_CHMOD
+#define  _USE_CHMOD		0
+#else
+#define  _USE_CHMOD		FATFS_FFCONF_OPT_USE_CHMOD
+#endif
 /* This option switches attribute manipulation functions, f_chmod() and f_utime().
 /  (0:Disable or 1:Enable) Also _FS_READONLY needs to be 0 to enable this option. */
 
 
-#define _USE_LABEL		0
+#ifndef FATFS_FFCONF_OPT_USE_LABEL
+#define  _USE_LABEL		1
+#else
+#define  _USE_LABEL		FATFS_FFCONF_OPT_USE_LABEL
+#endif
 /* This option switches volume label functions, f_getlabel() and f_setlabel().
 /  (0:Disable or 1:Enable) */
 
 
-#define	_USE_FORWARD	0
+#ifndef FATFS_FFCONF_OPT_USE_FORWARD
+#define		_USE_FORWARD	0
+#else
+#define		_USE_FORWARD	FATFS_FFCONF_OPT_USE_FORWARD
+#endif
 /* This option switches f_forward() function. (0:Disable or 1:Enable) */
 
 
@@ -69,7 +109,11 @@
 / Locale and Namespace Configurations
 /---------------------------------------------------------------------------*/
 
-#define _CODE_PAGE	932
+#ifndef FATFS_FFCONF_OPT_CODE_PAGE
+#define  _CODE_PAGE	1
+#else
+#define  _CODE_PAGE	FATFS_FFCONF_OPT_CODE_PAGE
+#endif
 /* This option specifies the OEM code page to be used on the target system.
 /  Incorrect setting of the code page can cause a file open failure.
 /
@@ -98,8 +142,18 @@
 */
 
 
-#define	_USE_LFN	0
-#define	_MAX_LFN	255
+#ifndef FATFS_FFCONF_OPT_USE_LFN
+#define		_USE_LFN	0
+#else
+#define		_USE_LFN	FATFS_FFCONF_OPT_USE_LFN
+#endif
+
+#ifndef FATFS_FFCONF_OPT_MAX_LFN
+#define		_MAX_LFN	255
+#else
+#define		_MAX_LFN	FATFS_FFCONF_OPT_MAX_LFN
+#endif
+
 /* The _USE_LFN switches the support of long file name (LFN).
 /
 /   0: Disable support of LFN. _MAX_LFN has no effect.
@@ -116,13 +170,21 @@
 /  ff_memfree(), must be added to the project. */
 
 
-#define	_LFN_UNICODE	0
+#ifndef FATFS_FFCONF_OPT_LFN_UNICODE
+#define		_LFN_UNICODE	0
+#else
+#define		_LFN_UNICODE	FATFS_FFCONF_OPT_LFN_UNICODE
+#endif
 /* This option switches character encoding on the API. (0:ANSI/OEM or 1:UTF-16)
 /  To use Unicode string for the path name, enable LFN and set _LFN_UNICODE = 1.
 /  This option also affects behavior of string I/O functions. */
 
 
-#define _STRF_ENCODE	3
+#ifndef FATFS_FFCONF_OPT_STRF_ENCODE
+#define  _STRF_ENCODE	3
+#else
+#define  _STRF_ENCODE	FATFS_FFCONF_OPT_STRF_ENCODE
+#endif
 /* When _LFN_UNICODE == 1, this option selects the character encoding ON THE FILE to
 /  be read/written via string I/O functions, f_gets(), f_putc(), f_puts and f_printf().
 /
@@ -134,7 +196,11 @@
 /  This option has no effect when _LFN_UNICODE == 0. */
 
 
-#define _FS_RPATH	0
+#ifndef FATFS_FFCONF_OPT_FS_RPATH
+#define  _FS_RPATH	0
+#else
+#define  _FS_RPATH	FATFS_FFCONF_OPT_FS_RPATH
+#endif
 /* This option configures support of relative path.
 /
 /   0: Disable relative path and remove related functions.
@@ -147,12 +213,25 @@
 / Drive/Volume Configurations
 /---------------------------------------------------------------------------*/
 
-#define _VOLUMES	1
+#ifndef FATFS_FFCONF_OPT_VOLUMES
+#define  _VOLUMES	1
+#else
+#define  _VOLUMES	FATFS_FFCONF_OPT_VOLUMES
+#endif
 /* Number of volumes (logical drives) to be used. */
 
 
-#define _STR_VOLUME_ID	0
-#define _VOLUME_STRS	"RAM","NAND","CF","SD","SD2","USB","USB2","USB3"
+#ifndef FATFS_FFCONF_OPT_STR_VOLUME_ID
+#define  _STR_VOLUME_ID	0
+#else
+#define  _STR_VOLUME_ID	FATFS_FFCONF_OPT_STR_VOLUME_ID
+#endif
+
+#ifndef FATFS_FFCONF_OPT_VOLUME_STRS
+#define  _VOLUME_STRS	"RAM","NAND","CF","SD","SD2","USB","USB2","USB3"
+#else
+#define  _VOLUME_STRS	FATFS_FFCONF_OPT_VOLUME_STRS
+#endif
 /* _STR_VOLUME_ID switches string support of volume ID.
 /  When _STR_VOLUME_ID is set to 1, also pre-defined strings can be used as drive
 /  number in the path name. _VOLUME_STRS defines the drive ID strings for each
@@ -160,7 +239,11 @@
 /  the drive ID strings are: A-Z and 0-9. */
 
 
+#ifndef FATFS_FFCONF_OPT_MULTI_PARTITION
 #define	_MULTI_PARTITION	0
+#else
+#define	_MULTI_PARTITION	FATFS_FFCONF_OPT_MULTI_PARTITION
+#endif
 /* This option switches support of multi-partition on a physical drive.
 /  By default (0), each logical drive number is bound to the same physical drive
 /  number and only an FAT volume found on the physical drive will be mounted.
@@ -169,8 +252,17 @@
 /  funciton will be available. */
 
 
-#define	_MIN_SS		512
-#define	_MAX_SS		512
+#ifndef FATFS_FFCONF_OPT_MIN_SS
+#define		_MIN_SS		512
+#else
+#define		_MIN_SS		FATFS_FFCONF_OPT_MIN_SS
+#endif
+
+#ifndef FATFS_FFCONF_OPT_MAX_SS
+#define		_MAX_SS		512
+#else
+#define		_MAX_SS		51FATFS_FFCONF_OPT_MAX_SS
+#endif
 /* These options configure the range of sector size to be supported. (512, 1024,
 /  2048 or 4096) Always set both 512 for most systems, all type of memory cards and
 /  harddisk. But a larger value may be required for on-board flash memory and some
@@ -179,13 +271,21 @@
 /  disk_ioctl() function. */
 
 
-#define	_USE_TRIM	0
+#ifndef FATFS_FFCONF_OPT_USE_TRIM
+#define		_USE_TRIM	0
+#else
+#define		_USE_TRIM	FATFS_FFCONF_OPT_USE_TRIM
+#endif
 /* This option switches support of ATA-TRIM. (0:Disable or 1:Enable)
 /  To enable Trim function, also CTRL_TRIM command should be implemented to the
 /  disk_ioctl() function. */
 
 
-#define _FS_NOFSINFO	0
+#ifndef FATFS_FFCONF_OPT_FS_NOFSINFO
+#define  _FS_NOFSINFO	0
+#else
+#define  _FS_NOFSINFO	FATFS_FFCONF_OPT_FS_NOFSINFO
+#endif
 /* If you need to know correct free space on the FAT32 volume, set bit 0 of this
 /  option, and f_getfree() function at first time after volume mount will force
 /  a full FAT scan. Bit 1 controls the use of last allocated cluster number.
@@ -202,34 +302,65 @@
 / System Configurations
 /---------------------------------------------------------------------------*/
 
-#define	_FS_TINY	0
+#ifndef FATFS_FFCONF_OPT_FS_TINY
+#define		_FS_TINY	1
+#else
+#define		_FS_TINY	FATFS_FFCONF_OPT_FS_TINY
+#endif
 /* This option switches tiny buffer configuration. (0:Normal or 1:Tiny)
 /  At the tiny configuration, size of file object (FIL) is reduced _MAX_SS bytes.
 /  Instead of private sector buffer eliminated from the file object, common sector
 /  buffer in the file system object (FATFS) is used for the file data transfer. */
 
 
-#define _FS_EXFAT	0
+#ifndef FATFS_FFCONF_OPT_FS_EXFAT
+#define  _FS_EXFAT	0
+#else
+#define  _FS_EXFAT	FATFS_FFCONF_OPT_FS_EXFAT
+#endif
 /* This option switches support of exFAT file system. (0:Disable or 1:Enable)
 /  When enable exFAT, also LFN needs to be enabled. (_USE_LFN >= 1)
 /  Note that enabling exFAT discards C89 compatibility. */
 
 
-#define _FS_NORTC	0
-#define _NORTC_MON	1
-#define _NORTC_MDAY	1
-#define _NORTC_YEAR	2016
+#ifndef FATFS_FFCONF_OPT_FS_NORTC
+#define  _FS_NORTC	0
+#else
+#define  _FS_NORTC	FATFS_FFCONF_OPT_FS_NORTC
+#endif
+
+#ifndef FATFS_FFCONF_OPT_NORTC_MON
+#define  _NORTC_MON	1
+#else
+#define  _NORTC_MON	FATFS_FFCONF_OPT_NORTC_MON
+#endif
+
+#ifndef FATFS_FFCONF_OPT_NORTC_MDAY
+#define  _NORTC_MDAY	1
+#else
+#define  _NORTC_MDAY	FATFS_FFCONF_OPT_NORTC_MDAY
+#endif
+
+#ifndef FATFS_FFCONF_OPT_NORTC_YEAR
+#define  _NORTC_YEAR	2016
+#else
+#define  _NORTC_YEAR	FATFS_FFCONF_OPT_NORTC_YEAR
+#endif
 /* The option _FS_NORTC switches timestamp functiton. If the system does not have
 /  any RTC function or valid timestamp is not needed, set _FS_NORTC = 1 to disable
 /  the timestamp function. All objects modified by FatFs will have a fixed timestamp
 /  defined by _NORTC_MON, _NORTC_MDAY and _NORTC_YEAR in local time.
 /  To enable timestamp function (_FS_NORTC = 0), get_fattime() function need to be
 /  added to the project to get current time form real-time clock. _NORTC_MON,
-/  _NORTC_MDAY and _NORTC_YEAR have no effect. 
+/  _NORTC_MDAY and _NORTC_YEAR have no effect.
 /  These options have no effect at read-only configuration (_FS_READONLY = 1). */
 
 
-#define	_FS_LOCK	0
+#ifndef FATFS_FFCONF_OPT_FS_LOCK
+#define		_FS_LOCK	0
+#else
+#define		_FS_LOCK	FATFS_FFCONF_OPT_FS_LOCK
+#endif
 /* The option _FS_LOCK switches file lock function to control duplicated file open
 /  and illegal operation to open objects. This option must be 0 when _FS_READONLY
 /  is 1.
@@ -241,9 +372,23 @@
 /      lock control is independent of re-entrancy. */
 
 
-#define _FS_REENTRANT	0
-#define _FS_TIMEOUT		1000
-#define	_SYNC_t			HANDLE
+#ifndef FATFS_FFCONF_OPT_FS_REENTRANT
+#define  _FS_REENTRANT	0
+#else
+#define  _FS_REENTRANT	FATFS_FFCONF_OPT_FS_REENTRANT
+#endif
+
+#ifndef FATFS_FFCONF_OPT_FS_TIMEOUT
+#define  _FS_TIMEOUT	1000
+#else
+#define  _FS_TIMEOUT	FATFS_FFCONF_OPT_FS_TIMEOUT
+#endif
+
+#ifndef FATFS_FFCONF_OPT_SYNC_T
+#define  _SYNC_t	HANDLE
+#else
+#define  _SYNC_t	FATFS_FFCONF_OPT_SYNC_T
+#endif
 /* The option _FS_REENTRANT switches the re-entrancy (thread safe) of the FatFs
 /  module itself. Note that regardless of this option, file access to different
 /  volume is always re-entrant and volume control functions, f_mount(), f_mkfs()
