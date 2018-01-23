@@ -15,7 +15,7 @@ typedef unsigned __int64 QWORD;
 #else			/* Embedded platform */
 
 /* These types MUST be 16-bit or 32-bit */
-typedef int				INT;
+/* typedef int				INT; <-- this was commented out because of a name clash */
 typedef unsigned int	UINT;
 
 /* This type MUST be 8-bit */
