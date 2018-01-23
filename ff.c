@@ -2236,7 +2236,7 @@ void init_alloc_info (
 /* exFAT: Load the object's directory entry block */
 /*------------------------------------------------*/
 static
-FRESULT load_obj_xdir (	
+FRESULT load_obj_xdir (
 	DIR* dp,			/* Blank directory object to be used to access containing direcotry */
 	const FFOBJID* obj	/* Object with its containing directory information */
 )
@@ -2742,7 +2742,7 @@ void get_fileinfo (
 	while (si < 11) {		/* Copy name body and extension */
 		c = (TCHAR)dp->dir[si++];
 		if (c == ' ') continue;		/* Skip padding spaces */
-		if (c == RDDEM) c = DDEM;	/* Restore replaced DDEM character */
+		if (c == RDDEM) c = (TCHAR)DDEM;	/* Restore replaced DDEM character */
 		if (si == 9) fno->fname[di++] = '.';/* Insert a . if extension is exist */
 		fno->fname[di++] = c;
 	}
@@ -6552,4 +6552,3 @@ FRESULT f_setcp (
 	return FR_OK;
 }
 #endif	/* FF_CODE_PAGE == 0 */
-
