@@ -39,8 +39,9 @@ void ff_memfree (
 /* Definitions of Mutex                                                   */
 /*------------------------------------------------------------------------*/
 
-#define OS_TYPE	0	/* 0:Win32, 1:uITRON4.0, 2:uC/OS-II, 3:FreeRTOS, 4:CMSIS-RTOS */
-
+#ifndef OS_TYPE
+#define OS_TYPE 0 /* 0:Win32, 1:uITRON4.0, 2:uC/OS-II, 3:FreeRTOS, 4:CMSIS-RTOS, 5:RIOT-OS */
+#endif
 
 #if   OS_TYPE == 0	/* Win32 */
 #include <windows.h>
@@ -63,6 +64,11 @@ static SemaphoreHandle_t Mutex[FF_VOLUMES + 1];	/* Table of mutex handle */
 #elif OS_TYPE == 4	/* CMSIS-RTOS */
 #include "cmsis_os.h"
 static osMutexId Mutex[FF_VOLUMES + 1];	/* Table of mutex ID */
+
+#elif OS_TYPE == 5 /* RIOT-OS */
+#include "mutex.h"
+#include "ztimer.h"
+static mutex_t Mutex[FF_VOLUMES + 1]; /* Table of mutexes */
 
 #endif
 
@@ -106,6 +112,10 @@ int ff_mutex_create (	/* Returns 1:Function succeeded or 0:Could not create the 
 	Mutex[vol] = osMutexCreate(osMutex(cmsis_os_mutex));
 	return (int)(Mutex[vol] != NULL);
 
+#elif OS_TYPE == 5 /* RIOT-OS */
+    mutex_init(&Mutex[vol]);
+    return 1;
+
 #endif
 }
 
@@ -137,6 +147,10 @@ void ff_mutex_delete (	/* Returns 1:Function succeeded or 0:Could not delete due
 
 #elif OS_TYPE == 4	/* CMSIS-RTOS */
 	osMutexDelete(Mutex[vol]);
+
+#elif OS_TYPE == 5 /* RIOT-OS */
+    /* nothing to do */
+    (void)vol;
 
 #endif
 }
@@ -171,6 +185,9 @@ int ff_mutex_take (	/* Returns 1:Succeeded or 0:Timeout */
 #elif OS_TYPE == 4	/* CMSIS-RTOS */
 	return (int)(osMutexWait(Mutex[vol], FF_FS_TIMEOUT) == osOK);
 
+#elif OS_TYPE == 5 /* RIOT-OS */
+    return ztimer_mutex_lock_timeout(ZTIMER_MSEC, &Mutex[vol], FF_FS_TIMEOUT) == 0;
+
 #endif
 }
 
@@ -200,6 +217,9 @@ void ff_mutex_give (
 
 #elif OS_TYPE == 4	/* CMSIS-RTOS */
 	osMutexRelease(Mutex[vol]);
+
+#elif OS_TYPE == 5 /* RIOT-OS */
+    mutex_unlock(&Mutex[vol]);
 
 #endif
 }
